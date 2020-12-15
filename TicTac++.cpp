@@ -4,43 +4,53 @@ using namespace std;
 
 // Declared functions.
 bool writeMove(char grid[][3], int, int, char turn);
-void resetGrid(char grid[][3]);
 bool victory(char grid[][3]);
+bool contPlaying();
+void reset(char grid[][3]);
 void printGrid();
 void play();
 
+
 // Some global vars.
 int attempts = 0;
+int winsX = 0;
+int winsO = 0;
 char grid[3][3];
 char winner;
 
 int main() {
-	resetGrid(grid);
+	do{
+	reset(grid);
 	play();
+	cout << "X has won " << winsX << " times." << endl;
+	cout << "O has won " << winsO << " times." << endl;
+	} while (contPlaying());
 
 	cin.get();
 	return 0;
 }
 
-// Initialized functions
 
-// Resets the grid values to 0. Pretty useless as I have not implemented a way to continue the game.
-void resetGrid(char grid[][3]) {
+// Initialized functions.
+
+// Resets the grid values and attempts (used to check for a tie) to 0.
+void reset(char grid[][3]) {
+	attempts = 0;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			grid[i][j] = ' ';
 		}
 	}
-	
+
 }
 
 // Prints a really shitty grid.
 void printGrid() {
 	cout << "     1     2     3   " << endl << "                     " << endl;
 	for (int i = 0; i < 3; i++) {
-		cout << i + 1<<"  ";
+		cout << i + 1 << "  ";
 		for (int j = 0; j < 3; j++) {
-			cout<< setw(3) << grid[i][j] << setw(3)<<"|";
+			cout << setw(3) << grid[i][j] << setw(3) << "|";
 		}
 		cout << endl << "    ----|-----|-----|" << endl;
 	}
@@ -63,7 +73,7 @@ void play()
 					cout << "Column: ";
 					cin >> column;
 					cout << endl;
-				} while ((row > 3 || row<1) || (column > 3 || column<1));
+				} while ((row > 3 || row < 1) || (column > 3 || column < 1));
 			} while (writeMove(grid, row, column, turn));
 			turn = 'O';
 			system("CLS");
@@ -84,19 +94,19 @@ void play()
 			system("CLS");
 		}
 		attempts++;
-	} while (victory(grid)==0);
-	
+	} while (victory(grid) == 0);
+
 }
 
 // Writes the move, or returns a message if you can't input your turn on pre-existing coordinates.
 bool writeMove(char grid[][3], int row, int column, char turn) {
-	if (grid[row-1][column-1]==' '){
-		grid[row-1][column-1] = turn;
+	if (grid[row - 1][column - 1] == ' ') {
+		grid[row - 1][column - 1] = turn;
 		printGrid();
 		return 0;
 	}
 	else {
-		cout << row-1 << ", " << column-1 << " is already taken."<<endl;
+		cout << row - 1 << ", " << column - 1 << " is already taken." << endl;
 		return 1;
 	}
 }
@@ -107,7 +117,9 @@ bool victory(char grid[][3])
 	char testingInput = 'X';
 	if (attempts == 9) {
 		system("CLS");
-		cout << "IT'S A TIE!";
+		cout << "IT'S A TIE!"<<endl;
+		winsX++;
+		winsO++;
 		return true;
 	}
 	for (int i = 0; i < 2; i++) {
@@ -125,10 +137,24 @@ bool victory(char grid[][3])
 			grid[0][0] == testingInput && grid[1][1] == testingInput && grid[2][2] == testingInput ||
 			grid[2][0] == testingInput && grid[1][1] == testingInput && grid[0][2] == testingInput) {
 			system("CLS");
-			cout << "THE WINNER IS " << testingInput;
+			cout << "THE WINNER IS " << testingInput<<endl;
+			if (testingInput == 'X')
+				winsX++;
+			else
+				winsO++;
 			return true;
 		}
 	}
 	testingInput = 'X';
 	return false;
-	}
+}
+
+// Woo you can continue playing now.
+bool contPlaying() {
+	char decision;
+	cout << "Do you want to continue playing? Y/n: ";
+	cin >> decision;
+	if (decision == 'Y' || decision == 'y')
+		return true;
+	else return false;
+}
