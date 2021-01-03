@@ -2,7 +2,7 @@
 
 
 Did you ever think to yourself:
-> "I sure wish I coud play Tic Tac Toe in a console, and I sure dislike all the other C++ Tic Tac Toe implementations other people made".
+> " I wish to suffer, and I sure wish I coud play Tic Tac Toe in a console, and I sure dislike all the other C++ Tic Tac Toe implementations that other people made".
 
 No? Well, too bad. I still made it.
 
