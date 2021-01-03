@@ -10,4 +10,4 @@ This is version of Tic Tac Toe in C++ using two-dimensional arrays and way too m
 
 Want to play it? Here you go: 
 
-<a href="https://github.com/omznc/TicTacPlusPlus/releases/tag/v1"><img src="https://i.imgur.com/9i4dyGj.png" alt="Download" width="400"/></a>
+<a href="https://github.com/omznc/TicTacPlusPlus/releases/latest"><img src="https://i.imgur.com/9i4dyGj.png" alt="Download" width="400"/></a>
